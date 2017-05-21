@@ -4,7 +4,7 @@ Created on Wed Jun 18 16:12:15 2014
 
 @author: dap124
 """
-from __future__ import print_function
+
 
 import openmodes
 from openmodes.sources import PlaneWaveSource
@@ -54,7 +54,7 @@ def test_pickling_references():
             V = pickle.load(infile)
 
         parents_dict = {}
-        for part in V.lookup[1][0].keys():
+        for part in list(V.lookup[1][0].keys()):
             print("Unpickled part", part)
             if part.parent_ref is None:
                 parents_dict[str(part.id)] = 'None'

@@ -24,7 +24,7 @@ a format which OpenModes recognises.
 Gmsh 2.8.4 is required, as it introduced the `setnumber` command line parameter
 """
 
-from __future__ import print_function
+
 
 import subprocess
 import os.path as osp
@@ -88,7 +88,7 @@ def mesh_geometry(filename, dirname, mesh_tol=None, binary=True,
                     '-string', 'Mesh.Algorithm=1;']
 
     # override geometric parameters on the command-line
-    for param, value in parameters.items():
+    for param, value in list(parameters.items()):
         call_options += ['-setnumber', param, str(value)]
 
     if mesh_tol is not None:
@@ -284,8 +284,8 @@ def read_mesh(filename, returned_elements=("edges", "triangles")):
 
     # Go through each entity, and work out which nodes belong to it. Nodes are
     # renumbered, so elements are updated to reflect new numbering
-    for obj_nums, obj_nodes, obj_elements in zip(object_nodes.keys(),
-            object_nodes.values(), object_elements.values()):
+    for obj_nums, obj_nodes, obj_elements in zip(list(object_nodes.keys()),
+            list(object_nodes.values()), list(object_elements.values())):
 
         # renumber the nodes
         orig_nodes = np.sort(list(obj_nodes))

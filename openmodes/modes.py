@@ -18,7 +18,7 @@
 # -----------------------------------------------------------------------------
 "Classes for projecting a vector or matrix onto a set of modes"
 
-from __future__ import division
+
 
 import numpy as np
 
@@ -131,7 +131,7 @@ class AbstractModes(object):
 
         # for now, criteria is just a list of mode numbers
         new = {}
-        for part_id, original in self.modes_of_parts.items():
+        for part_id, original in list(self.modes_of_parts.items()):
             if isinstance(criteria, dict):
                 part_criteria = criteria[part_id]
             elif isinstance(criteria, LookupArray):
@@ -156,7 +156,7 @@ class Modes(AbstractModes):
         poles have already been added"""
 
         new = {}
-        for part_id, original in self.modes_of_parts.items():
+        for part_id, original in list(self.modes_of_parts.items()):
             # first attempt for a single part
             real_poles = is_real_pole(original['s'])
             complex_poles = np.logical_not(real_poles)
@@ -182,7 +182,7 @@ class Modes(AbstractModes):
         imaginary currents of each mode"""
 
         new = {}
-        for part_id, original in self.modes_of_parts.items():
+        for part_id, original in list(self.modes_of_parts.items()):
             # first attempt for a single part
             real_poles = is_real_pole(original['s'])
             complex_poles = np.logical_not(real_poles)
@@ -229,7 +229,7 @@ def match_degenerate_modes(modes, threshold=1e-2):
 
     s = modes.s[0]
     matched = []
-    unmatched = range(len(s))
+    unmatched = list(range(len(s)))
 
     while len(unmatched) > 0:
         current = unmatched.pop()

@@ -18,7 +18,7 @@
 #-----------------------------------------------------------------------------
 
 
-from __future__ import division
+
 
 # numpy and scipy
 import numpy as np

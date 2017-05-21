@@ -76,7 +76,7 @@ class LinearTriangleBasis(AbstractBasis):
 
     @classmethod
     def unique_key(cls, part, args):
-        return (cls, part.mesh.id, frozenset(args.items()))
+        return (cls, part.mesh.id, frozenset(list(args.items())))
 
     def interpolate_function(self, linear_func,
                              integration_rule=triangle_centres,
@@ -247,8 +247,8 @@ class LinearTriangleBasis(AbstractBasis):
         """
         num_tri = len(self.mesh.polygons)
         G = np.zeros((num_tri, 3, num_tri, 3), dtype=np.float64)
-        for tri_count, (tri, area) in enumerate(zip(self.mesh.polygons,
-                                                    self.mesh.polygon_areas)):
+        for tri_count, (tri, area) in enumerate(list(zip(self.mesh.polygons,
+                                                    self.mesh.polygon_areas))):
             nodes = self.mesh.nodes[tri]
             G[tri_count, :, tri_count, :] = inner_product_triangle_face(nodes)/(2*area)
             # factor of 1/(2*area) is for second integration
@@ -485,7 +485,7 @@ class LoopStarBasis(LinearTriangleBasis):
             outer_nodes.add(edge[1])
 
         # find the nodes which don't belong to any shared edge
-        inner_nodes = OrderedSet(range(num_nodes)) - outer_nodes
+        inner_nodes = OrderedSet(list(range(num_nodes))) - outer_nodes
 
         triangles_sharing_nodes = mesh.triangles_sharing_nodes()
 
@@ -658,7 +658,7 @@ class MacroBasis(AbstractBasis):
     @classmethod
     def unique_key(cls, part, args):
         # Note: does not capture identical groups of parts
-        return (cls, part.unique_id, frozenset(args.items()))
+        return (cls, part.unique_id, frozenset(list(args.items())))
 
     def __len__(self):
         "The length is the number of solution vectors considered"

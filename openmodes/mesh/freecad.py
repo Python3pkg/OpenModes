@@ -18,11 +18,11 @@
 # -----------------------------------------------------------------------------
 "Create meshes using FreeCAD"
 
-from __future__ import division
+
 
 import numpy as np
 
-import FreeCAD
+from . import FreeCAD
 import Part
 import MeshPart
 

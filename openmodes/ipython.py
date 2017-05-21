@@ -24,8 +24,8 @@ try:
     from ipywidgets import FloatProgress, HBox, Label
 except ImportError:
     # retain deprecated import for IPython 3 compatibility
-    from IPython.html.widgets import FloatProgress, HBox, Label
-from IPython.display import HTML, display
+    from .IPython.html.widgets import FloatProgress, HBox, Label
+from .IPython.display import HTML, display
 import numpy as np
 import uuid
 import json

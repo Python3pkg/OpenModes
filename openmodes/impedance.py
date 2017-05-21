@@ -18,7 +18,7 @@
 #-----------------------------------------------------------------------------
 "Classes for holding impedance matrix objects"
 
-from __future__ import division
+
 
 # numpy and scipy
 import numpy as np
@@ -51,7 +51,7 @@ class ImpedanceMatrixLA(object):
 
         if matrices is not None:
             # fill out any matrices which are supplied
-            for name, mat in matrices.items():
+            for name, mat in list(matrices.items()):
                 self.matrices[name][:] = mat
 
         # create the frequency derivatives of the matrices
@@ -115,11 +115,11 @@ class ImpedanceMatrixLA(object):
             ind1 = index
             ind2 = self.part_s
 
-        matrices = {key: val[ind1, ind2] for key, val in self.matrices.items()}
+        matrices = {key: val[ind1, ind2] for key, val in list(self.matrices.items())}
         if self.der in (None, False):
             der = self.der
         else:
-            der = {key: val[ind1, ind2] for key, val in self.der.items()}
+            der = {key: val[ind1, ind2] for key, val in list(self.der.items())}
 
         return self.__class__(ind1, ind2, self.basis_container, self.sources,
                               self.unknowns, metadata=self.md,
@@ -136,12 +136,12 @@ class ImpedanceMatrixLA(object):
 
     @property
     def T(self):
-        matrices = {key: val.T for key, val in self.matrices.items()}
+        matrices = {key: val.T for key, val in list(self.matrices.items())}
 
         if self.der in (None, False):
             der = self.der
         else:
-            der = {key: val.T for key, val in self.der.items()}
+            der = {key: val.T for key, val in list(self.der.items())}
 
         return self.__class__(self.part_s, self.part_o, self.basis_container,
                               self.sources, self.unknowns, metadata=self.md,
@@ -180,9 +180,9 @@ class EfieImpedanceMatrixLA(ImpedanceMatrixLA):
     def weight(self, vr, vl):
         "Weight the impedance matrix by right and left vectors"
         new_matrices = {name: np.dot(vl.simple_view(), np.dot(mat, vr.simple_view()))
-                        for name, mat in self.matrices.items()}
+                        for name, mat in list(self.matrices.items())}
         new_der = {name: np.dot(vl.simple_view(), np.dot(mat, vr.simple_view()))
-                   for name, mat in self.der.items()}
+                   for name, mat in list(self.der.items())}
         macro_container = vr.lookup[3][1]
         return self.__class__(self.part_o, self.part_s, macro_container,
                               ('modes',), ('modes',), self.md, new_matrices,

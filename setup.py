@@ -134,14 +134,14 @@ class compiler_dependent_build_ext(build_ext):
         for extension in self.extensions:
             try:
                 modification = ccompiler_dependent_options[ccompiler]
-                for key, val in modification.items():
+                for key, val in list(modification.items()):
                     getattr(extension, key).extend(val)
             except (KeyError, AttributeError):
                 pass
 
             try:
                 modification = fcompiler_dependent_options[fcompiler]
-                for key, val in modification.items():
+                for key, val in list(modification.items()):
                     getattr(extension, key).extend(val)
             except (KeyError, AttributeError):
                 pass

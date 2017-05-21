@@ -18,7 +18,7 @@
 #-----------------------------------------------------------------------------
 """Operators for surface equivalent problems for penetrable scatteres"""
 
-from __future__ import division
+
 
 import numpy as np
 

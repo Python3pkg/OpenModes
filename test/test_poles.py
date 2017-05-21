@@ -5,7 +5,7 @@ Created on Tue Jun 16 15:50:37 2015
 @author: dap124
 """
 
-from __future__ import print_function
+
 
 import os.path as osp
 

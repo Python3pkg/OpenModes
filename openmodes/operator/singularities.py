@@ -59,12 +59,12 @@ class MultiSparse(object):
         return self.rows[index[0]][index[1]]
 
     def __len__(self):
-        return sum(len(row_dict) for row, row_dict in self.rows.items())
+        return sum(len(row_dict) for row, row_dict in list(self.rows.items()))
 
     def items(self):
         "Iterate through all items"
-        for row, row_dict in self.rows.items():
-            for col, item in row_dict.items():
+        for row, row_dict in list(self.rows.items()):
+            for col, item in list(row_dict.items()):
                 yield ((row, col), item)
 
     def to_csr(self, order='C'):
@@ -107,7 +107,7 @@ class MultiSparse(object):
         for row in range(num_rows):
             if row in self.rows:
                 # the row exists, so process it
-                for col, item in self.rows[row].items():
+                for col, item in list(self.rows[row].items()):
                     for sub_count, sub_item in enumerate(item):
                         data_arrays[sub_count][data_index] = sub_item
 
@@ -198,5 +198,5 @@ def singular_impedance_rwg(basis, num_terms, rel_tol, normals):
     # Arrays are currently put into fortran order, under the assumption
     # that they will mostly be used by fortran routines.
     cached_singular_terms[unique_id] = {k: v.to_csr(order='F')
-                                        for k, v in singular_terms.items()}
+                                        for k, v in list(singular_terms.items())}
     return cached_singular_terms[unique_id]

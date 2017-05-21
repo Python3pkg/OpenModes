@@ -94,7 +94,7 @@ def compare_ref(val, reference, rtol, name):
     elif isinstance(val, dict):
         # Compare dictionaries, ensuring keys and all values are the same
         assert(set(val.keys()) == set(reference.keys()))
-        for key in val.keys():
+        for key in list(val.keys()):
             compare_ref(val[key], reference[key], rtol, "{}[{}]".format(name, key))
     else:
         raise ValueError("Unable to compare {} of type {} to reference".format(name, type(val)))
@@ -109,7 +109,7 @@ def run_test(func, tests_filename):
         reference = pickle.load(infile)
 
     assert(set(reference.keys()) == set(results['results'].keys()))
-    for name, val in results['results'].items():
+    for name, val in list(results['results'].items()):
         try:
             rtol = results['rtol'][name]
         except:

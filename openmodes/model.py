@@ -18,7 +18,7 @@
 #-----------------------------------------------------------------------------
 "Fit scalar models to numerically calculated impedance data"
 
-from __future__ import division
+
 import numpy as np
 from openmodes.impedance import ImpedanceMatrixLA, EfieImpedanceMatrixLA
 from openmodes.modes import SplitModes

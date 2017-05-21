@@ -18,7 +18,7 @@
 # -----------------------------------------------------------------------------
 "Classes for arrays where one or more axes can be indexed by Part objects"
 
-from __future__ import division
+
 
 import numpy as np
 from openmodes.parts import Part
